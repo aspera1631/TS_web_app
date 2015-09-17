@@ -7,7 +7,7 @@ from a_Model import ModelIt
 @app.route('/index')
 def index():
     return render_template("index.html",
-        title = 'Home', user = { 'nickname': 'Miguel' },
+        title = 'Home', user = { 'nickname': 'Miguel'},
         )
 
 @app.route('/db')
@@ -46,7 +46,11 @@ def cities_input():
 @app.route('/output')
 def cities_output():
   #pull 'ID' from input field and store it
-  city = request.args.get('ID')
+  tweet_in = request.args.get('ID')
+
+  # just output the tweet text
+  city = "Boston"
+
   db = MySQLdb.connect(host='localhost', user='root', passwd='', db='world', charset='utf8')
 
   with db:

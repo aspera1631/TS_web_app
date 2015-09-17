@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Starter Template for Bootstrap</title>
+    <title>TweetScore</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
@@ -41,7 +41,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <a class="navbar-brand" href="#">TweetScore</a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -57,15 +57,17 @@
 
     <div class="container">
       <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+        <h1>TweetScore</h1>
+        <p class="lead">Improve your tweet with our suggestions based on SCIENCE!</p>
       </div>
+      <!--
     <table class="table table-hover">
     <tr><th>Name</th><th>Country</th><th>Population</th></tr>
     {% for city in cities %}
     <tr><td>{{ city['name'] }}</td><td>{{ city['country']}}</td><td> {{ city['population'] }}</td></tr>
     {% endfor %}
     </table>
+    -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
 
@@ -74,21 +76,23 @@
   <div class="container">
 
     <div class="starter-template">
-        <h2>Input Page</h2>
-        <p>Enter some user input</p>
+        <h2>Scorer</h2>
+        <p>Paste your tweet here</p>
     </div>
 
     <div class = "container">
 
       <form  action="/output" method="GET">
         <div class="form-group">
-          <label for="ID">City  Name:</label>
-          <input type="text" id="ID" name='ID' placeholder="e.g. ">
+        <label for="abstract_text"></label>
+        <textarea rows="4" cols="80" type="text" id="tweet_in" name='tweet_in' placeholder="This web app was easy to make! #sarcastic @InsightDataSci"></textarea>
+
         </div>
 
         <div>
-          <button type="submit" class="btn btn-default btn-lg">Find this city!</button>
+        <button type="submit" class="btn btn-lg btn-info">Get my TweetScore!</button>
         </div>
+
 
       </form>
     </div>
