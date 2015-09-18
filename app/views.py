@@ -40,11 +40,11 @@ def cities_page_fancy():
     return render_template('cities.html', cities=cities)
 
 @app.route('/input')
-def cities_input():
+def input():
   return render_template("input.html")
 
 @app.route('/output')
-def cities_output():
+def output():
   #pull 'ID' from input field and store it
   tweet_in = request.args.get('tweet_in')
   tweet_coord = tweet_features(tweet_in)
@@ -70,11 +70,16 @@ def cities_output():
       msg1 = "You've found a local optimum!"
       msg2 = ""
       msg3 = ""
-    return render_template("output.html", the_tweet=tweet_html, msg1=msg1, msg2=msg2, msg3=msg3)
+    return render_template("output.html", tweet_html=tweet_html, tweetText = tweet_in, msg1=msg1, msg2=msg2, msg3=msg3)
 
   else:
     msg1 = "This does not appear to be a valid tweet!"
     msg2 = ""
     msg3 = ""
-    return render_template("output.html", the_tweet=tweet_html, msg1=msg1, msg2=msg2, msg3=msg3)
+    return render_template("output.html", tweet_html=tweet_html, tweetText = tweet_in, msg1=msg1, msg2=msg2, msg3=msg3)
 
+@app.route('/edit_input')
+def edit_input():
+    tweet_in = request.args.get('tweet_in')
+
+    return render_template("edit_input.html", tweetText = tweet_in)

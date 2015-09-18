@@ -73,34 +73,29 @@
 
     </div><!-- /.container -->
 
+  <div class="container">
 
-<!-- make a hidden form -->
+    <div class="starter-template">
+        <h2>Your tweet:</h2>
+    </div>
 
     <div class = "container">
-      <div class="starter-template">
-          <h2>Your tweet:</h2>
-          <p class="lead">{{tweet_html|safe}}</a></p>
-      </div>
-      <form  action="/edit_input" method="GET">
-        <input type="hidden" name="tweet_in"  value="{{tweetText}}" />
-        <div>
-        <button type="submit" class="btn btn-lg btn-info">Edit</button>
+
+      <form  action="/output" method="GET">
+        <div class="form-group">
+        <label for="abstract_text"></label>
+        <textarea rows="4" cols="80" type="text" id="tweet_in" name='tweet_in' placeholder="This web app was easy to make! #sarcastic @InsightDataSci">{{tweetText}}</textarea>
+
         </div>
+
+        <div>
+        <button type="submit" class="btn btn-lg btn-info">Get my suggestions!</button>
+        </div>
+
+
       </form>
     </div>
 
-    <div class="container">
-
-      <div class="starter-template">
-        <h3>Here are our top suggestions:</h3>
-        <p class="lead">{{msg1}}
-        <br>{{msg2}}
-        <br>{{msg3}}</p>
-
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="static/js/bootstrap.min.js"></script>
-      </div>
-    </div><!-- /.container -->
 
 
 
