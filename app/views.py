@@ -1,7 +1,7 @@
 from flask import render_template, request
 from app import app
 import MySQLdb
-from a_Model import ModelIt
+from models import tweet_features, get_tweet_html, validate_tweet
 
 @app.route('/')
 @app.route('/index')
@@ -46,24 +46,35 @@ def cities_input():
 @app.route('/output')
 def cities_output():
   #pull 'ID' from input field and store it
-  tweet_in = request.args.get('ID')
+  tweet_in = request.args.get('tweet_in')
+  tweet_coord = tweet_features(tweet_in)
+  tweet_html = get_tweet_html(tweet_in)
 
-  # just output the tweet text
-  city = "Boston"
+  invalid_tweet = validate_tweet(tweet_in)
 
-  db = MySQLdb.connect(host='localhost', user='root', passwd='', db='world', charset='utf8')
+
+  db = MySQLdb.connect(host='localhost', user='root', passwd='', db='tweetscore', charset='utf8')
 
   with db:
     cur = db.cursor()
     #just select the city from the world_innodb that the user inputs
-    cur.execute("SELECT Name, CountryCode,  Population FROM City WHERE Name='%s';" % city)
+    cur.execute("SELECT msg1, msg2, msg3 FROM recommendations3 WHERE desig='%s';" % tweet_coord)
     query_results = cur.fetchall()
 
-  cities = []
-  for result in query_results:
-    cities.append(dict(name=result[0], country=result[1], population=result[2]))
+  if invalid_tweet is False:
+    msg1 = query_results[0][0]
+    msg2 = query_results[0][1]
+    msg3 = query_results[0][2]
 
-  #call a function from a_Model package. note we are only pulling one result in the query
-  pop_input = cities[0]['population']
-  the_result = ModelIt(city, pop_input)
-  return render_template("output.html", cities = cities, the_result = the_result)
+    if msg1 == "":
+      msg1 = "You've found a local optimum!"
+      msg2 = ""
+      msg3 = ""
+    return render_template("output.html", the_tweet=tweet_html, msg1=msg1, msg2=msg2, msg3=msg3)
+
+  else:
+    msg1 = "This does not appear to be a valid tweet!"
+    msg2 = ""
+    msg3 = ""
+    return render_template("output.html", the_tweet=tweet_html, msg1=msg1, msg2=msg2, msg3=msg3)
+
