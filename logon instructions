@@ -1,0 +1,6 @@
+Next….open a terminal! 
+You need to change the permissions of the private key that you downloaded from AWS earlier (if you didn’t put it somewhere special, it’s probably in ~/Desktop)
+ > sudo chmod 600 <path to your key>. 
+Now ssh into the machine. Use the command:
+> ssh -i <path to your key> ubuntu@<your VM’s public IP address>. 
+If prompted “Are you sure that you want to continue?”, enter “yes”. 

@@ -28,7 +28,7 @@ def emoji_txt(text):
         return 0
 
 
-def tweet_features(df, tweet):
+def tweet_features(df, tweet, img_count):
     # run a tweet through the parser
     p = ttp.Parser()
     result = p.parse(tweet)

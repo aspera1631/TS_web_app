@@ -1,4 +1,3 @@
-__author__ = 'bdeutsch'
 import twitter_text as tt
 from ttp import ttp
 import re
@@ -29,13 +28,14 @@ def emoji_txt(text):
         return 0
 
 
-def tweet_features(tweet):
+def tweet_features(tweet, img_count):
+
     # run a tweet through the parser
     p = ttp.Parser()
     result = p.parse(tweet)
 
     # Use the twitter text py package to validate length
-    tweet_tt = tt.TwitterText(tweet)
+    tweet_tt = tt.TwitterText(tweet + "*"*23*img_count)
 
     # bin sizes:
     len_bas_max = 140
@@ -54,7 +54,7 @@ def tweet_features(tweet):
 
     emo_num = min([emoji_txt(tweet), emo_max])
     ht_num = min([len(result.tags), ht_max])
-    media_num = 0
+    media_num = img_count
     url_num = min([len(result.urls), url_max])
     user_num = min([len(result.users), user_max])
 
@@ -64,11 +64,10 @@ def tweet_features(tweet):
     https_num = count_https(result.urls)
     http_num = url_num - https_num
     url_len = https_num*23 + http_num*22
-    media_len = 0
+    media_len = media_num*23
 
-    txt_len_tot = tweet_tt.validation.tweet_length()   # total length of tweet
+    txt_len_tot = tweet_tt.validation.tweet_length()  # total length of tweet.
     txt_len_basic = min([(txt_len_tot - ht_len - user_len - url_len - media_len - emo_num)//len_bas_step, len_bas_max//len_bas_step])
-    #txt_len_basic = (txt_len_tot - ht_len - user_len - url_len - media_len - emo_num)//len_bas_step
 
     if txt_len_basic > 9:
         str_out = "[  %s.   %s.   %s.  %s.   %s.   %s.]" % (emo_num, ht_num, media_num, txt_len_basic, url_num, user_num)
@@ -77,8 +76,8 @@ def tweet_features(tweet):
 
     return str_out
 
-def validate_tweet(tweet):
-    tweet_tt = tt.TwitterText(tweet)
+def validate_tweet(tweet, img_count):
+    tweet_tt = tt.TwitterText(tweet + "*"*23*img_count)
     return tweet_tt.validation.tweet_invalid()
 
 def get_tweet_html(tweet):
@@ -91,4 +90,7 @@ def get_tweet_html(tweet):
 def print_lit(text):
     return text.encode('unicode-escape')
 
-test = "blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah @hiya @hiya @hiya"
+test = "blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah @hiya @hiya @hiya blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah @hiya @hiya @hiya"
+
+
+#print validate_tweet(test, 0)
