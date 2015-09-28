@@ -3,15 +3,6 @@ from app import app
 import MySQLdb
 from models import tweet_features, get_tweet_html, validate_tweet
 
-## Define upload path and allowed extensions
-UPLOAD_FOLDER = '/Users/scherrer/Dropbox/Insight Project/app/uploads/'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 @app.route('/')
 @app.route('/input')
@@ -35,7 +26,7 @@ def score():
     tweet_html = get_tweet_html(tweet_in)
     invalid_tweet = validate_tweet(tweet_in, img_count)
 
-    db = MySQLdb.connect(host='localhost', user='root', passwd='', db='tweetscore', charset='utf8')
+    db = MySQLdb.connect(host='localhost', user='root', passwd='CFT^vgy7', db='tweetscore', charset='utf8')
 
     with db:
         cur = db.cursor()
